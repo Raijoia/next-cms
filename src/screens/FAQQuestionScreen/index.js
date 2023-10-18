@@ -32,17 +32,17 @@ export async function getStaticProps({ params }) {
   const { data } = await cmsService({
     query: contentQuery
   });
+  console.log(data)
 
   return {
     props: {
+      cmsContent: data,
       id,
-      title: data.contentFaqQuestion.title,
-      content: data.contentFaqQuestion.content,
     }
   }
 }
 
-export default function FAQQuestionScreen({ title, content }) {
+export default function FAQQuestionScreen({ cmsContent }) {
   return (
     <>
       <Head>
@@ -62,29 +62,29 @@ export default function FAQQuestionScreen({ title, content }) {
       >
         <Box
           styleSheet={{
-            flexDirection: 'column',
-            width: '100%',
+            flexDirection: "column",
+            width: "100%",
             maxWidth: theme.space.xcontainer_lg,
-            marginHorizontal: 'auto',
+            marginHorizontal: "auto",
           }}
         >
           <Text tag="h1" variant="heading1">
-            {title}
+            {cmsContent.contentFaqQuestion.title}
           </Text>
 
-          <StructuredText 
-            data={content} 
+          <StructuredText
+            data={cmsContent.contentFaqQuestion.content}
             customNodeRules={[
               renderNodeRule(isHeading, ({ node, children, key }) => {
                 const tag = `h${node.level}`;
                 const variant = `heading${node.level}`;
-                console.log(node)
+                console.log(node);
                 return (
                   <Text tag={tag} variant={variant} key={key}>
                     {children}
                   </Text>
-                )
-              })
+                );
+              }),
             ]}
           />
           {/* <Box dangerouslySetInnerHTML={{ __html: content }} /> */}
@@ -94,7 +94,7 @@ export default function FAQQuestionScreen({ title, content }) {
         </Box>
       </Box>
 
-      <Footer />
+      <Footer description={cmsContent.globalContent.globalFooter.description} />
     </>
-  )
+  );
 }
