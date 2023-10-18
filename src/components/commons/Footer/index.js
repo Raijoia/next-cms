@@ -3,9 +3,11 @@ import { Box, Link, Text, theme } from '../../../theme/components';
 import { getCMSContent } from '../../../infra/cms/CMSProvider';
 
 export function Footer() {
-  const description = getCMSContent().globalContent?.globalFooter?.description;
   const [password, setPassword] = React.useState('');
   let http = `/api/preview?password=${password}`
+  
+  const description = getCMSContent("globalContent.globalFooter.description");
+
 
   return (
     <Box
