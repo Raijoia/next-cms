@@ -13,6 +13,7 @@ const PREVIEW_ENDPOINT = "https://graphql.datocms.com/preview";
 
 export async function cmsService({
   query,
+  variables,
   preview,
 }) {
 
@@ -26,6 +27,7 @@ export async function cmsService({
       },
       body: JSON.stringify({
         query,
+        variables,
       }),
     }).then(async (respostaDoServer) => {
       const body = await respostaDoServer.json();

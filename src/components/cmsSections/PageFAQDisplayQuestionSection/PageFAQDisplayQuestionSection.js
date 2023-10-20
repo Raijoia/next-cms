@@ -2,7 +2,7 @@ import { Box, Text, Link, Image, theme } from "../../../theme/components";
 
 export function PageFAQDisplayQuestionSection(props) {
   const categories = props.categories;
-  console.log(props);
+  // console.log(props);
 
   return (
     <Box
